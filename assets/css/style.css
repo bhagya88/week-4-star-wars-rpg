@@ -1,61 +1,60 @@
 body{
-	background-image: url("../images/starwars.jpg");
+	 background-image: url("../images/star-war.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
      background-size: cover;
-
-     color:black;
-     box-sizing: border-box;
-     padding-left:10px;
-
+     color:yellow;
+	font-family: 'Kanit', sans-serif;
+	font-size:20x;
 }
-
 header{
 
-    height:100px;
-    line-height:100px;
-	font-size:50px;
 	text-align: center;
+	font-family: 'Caesar Dressing', cursive;
+	font-size: 50px;
 }
+.container{
+	margin-top: 10px;
 
+}
 .character-img{
-	width:120px;
-	height:100px;
+	width:160px;
+	height:130px;
 }
-
 .character-box{
-	display:inline-block;
+	
 	padding:0px 10px 0px 10px;
 	background-color: white;
 	border: 2px solid black;
 	text-align: center;
-	margin:0px;
+	color:green;
+	
+	display:inline-block;
 }
 
 .character-box:hover{
 	opacity:0.8;
 }
 
-#attacker{
-
-display:inline-block;
-margin-right: 50px;
+#characters{
+	height:200px;
 }
 
-#attack{
-	display:inline-block;
-	margin-right: 200PX
+#attacker, #defender, #restart, #attack, #defender{
+	display: inline-block;
 }
 
-
-#enemies{
-display:inline-block;
-margin-right: 50px
-
+#btnAttack,#btnRestart{
+	vertical-align: middle;
 }
 
-#defender{
-display:inline-block;
-margin-right: 200px;
+.fighter-arena{
+	height:350px;
+	text-align: center;
+	background: transparent;
+	color:red;
+	text-align:center;
+	font-size: 15px;	
+
 }

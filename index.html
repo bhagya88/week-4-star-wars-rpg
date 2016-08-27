@@ -2,34 +2,87 @@
 <html>
 <head>
 	<title>Star Wars RPG</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Caesar+Dressing|Kanit|Ubuntu+Mono" rel="stylesheet">
 
 </head>
 <body>
+<header>Star Wars RPG</header>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8 " >
+			<div id="messageCharacters" class="row">Available Characters</div>
+			<div id="characters" class="row">
+				
+					<figure id="0" class="character-box character">
+					<figcaption>Arth</figcaption>
+					<img class="character-img" src="assets/images/arth.jpg">
+					<figcaption>1</figcaption>
+					</figure>
+				
+			
+					<figure id="1" class="character-box character">
+					<figcaption>Ben</figcaption>
+					<img class="character-img" src="assets/images/ben.jpg">
+					<figcaption>2</figcaption>
+					</figure>
+				
+					<figure id="2" class="character-box character">
+					<figcaption>Hema</figcaption>
+					<img class="character-img" src="assets/images/hema.jpg">
+					<figcaption>3</figcaption>
+					</figure>
+				
+					<figure id="3" class="character-box character">
+					<figcaption>Nix</figcaption>
+					<img class="character-img" src="assets/images/nix.jpg">
+					<figcaption>4</figcaption>
+					</figure>
+				
+			</div>
 
-	<header>Star Wars RPG </header>
+			<div id="message" class="row"></div>
 
-	<main>
-		<div id="characters">
-		
-			<figure id="0" class="character-box character"><figcaption>Arth</figcaption><img class="character-img" src="assets/images/arth.jpg"><figcaption></figcaption></figure>
-			<figure id="1" class="character-box character"><figcaption>Ben</figcaption><img class="character-img" src="assets/images/ben.jpg"><figcaption></figcaption></figure>
-			<figure id="2" class="character-box character"><figcaption>Hema</figcaption><img class="character-img" src="assets/images/hema.jpg"><figcaption></figcaption></figure>
-			<figure id="3" class="character-box character"><figcaption>Nix</figcaption><img class="character-img" src="assets/images/nix.jpg"><figcaption></figcaption></figure>
+			<div class="row well fighter-arena">
+				<div class="row"><h3>Fighting Arena</h3></div>
+				<div class="row">
+					
+					<div id="attacker" class="col-lg-4"></div>
+								
+					<div id="attack" class="col-lg-4">
+						<button id="btnAttackRestart" disabled="true">Attack</button>
+					</div>
+					<!-- <div id="restart" class="col-lg-2">
+						<button id="btnRestart" disabled="true">Restart
+						</button>
+					</div> -->
+				
+				
+			
+					
+					<div id="defender" class="col-lg-4"></div>
+				</div>
+			<div class="row">
+				
+				<div id="messageFooter" class="col-lg-12">Footer</div>
+				
+			</div>
+
+
 		</div>
 
+		<div class="col-lg-2"></div>
+	</div>
 
-		<div id="attacker" class="attacker-box"></div>
-		<div id="attack"><button id="btnAttack" disabled="true">Attack</button></div>
-		<div id="defender"></div>
-		<div id="enemies"></div>
-		
-		<div id="messages"></div>
-		<div id="restart"><button id="btnRestart" >Restart</button></div>
-	</main>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	
+	
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
 </body>
 </html>

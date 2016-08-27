@@ -6,154 +6,171 @@ var attackerScore;
 var defenderScore;
 
 var characters=[{
-	name:"arth",
-	basePower:50,
+	name:"Arth",
+	basePower:150,
 	attackPower:20
 },
 {
-	name:"ben",
+	name:"Ben",
 	basePower:120,
-	attackPower:5
+	attackPower:30
 },
 {
-	name:"hema",
+	name:"Hema",
 	basePower:200,
-	attackPower:20,
+	attackPower:15,
 },
 {
-	name:"nix",
+	name:"Nix",
 	basePower:150,
-	attackPower:25,
+	attackPower:20
 }];
 
+initializeGame();
+$('#characters').on('click', '.character', pickAttackerAndEnemies);
+$('#btnAttackRestart').click(attackRestart);
+// $('#btnRestart').click(restart);
 
-startGame();
 
 
-function startGame(){
 
-//****initialize********//
+function initializeGame(){
 
-	attacker=-1;    //attacker not yet assigned
-	defender=-1;    //defender not yet assigned
+	attacker=undefined;    
+	defender=undefined;  
 	attackerPower=0;
-
 	attackerScore=0;
 	defenderScore=0
 
-	$('#restart').hide();
-
+	//$('#btnRestart').hide();
+	$('#btnAttackRestart').html("Attack");
+	$("#btnAttackRestart").hide();
+	$('#message').html("Pick your character to get started.");
+	$('#messageFooter').html("");
+	$('#messageCharacters').html("Available characters")
 
 	for(var i=0;i<characters.length;i++){
 			$('#'+i+' > figcaption:last').text(characters[i].basePower);	
-	}
-
-
-
-	pickAttackerAndSetEnemies();
-	pickDefender();
-	attack();
-	restart();
-	console.log(attacker);
+			$('#'+i+' > figcaption:first').text(characters[i].name);
+	}		
 
 }
 
-function pickAttackerAndSetEnemies(){
+function pickAttackerAndEnemies(){
+
+	console.log("begin clickpickAttackerandEnemies",attacker,defender);
 	
-	$('#characters').on('click', '.character', function() {
-		console.log("inside clickpickAttackerandSetEnemies");
-		
+	if(attacker ===undefined){
 		attacker=parseInt($(this).attr('id'));
-		$('#attacker').append($(this));
-
-
+		$('#attacker').prepend($(this));
 		attackerScore=characters[attacker].basePower;
 		attackerPower = characters[attacker].attackPower;
+		$('#message').html("Pick enemy to fight from remaining characters.");	
+		$('#messageCharacters').html("Available enemies");
+	}else if(defender === undefined){
 
-			for( var i=0;i<characters.length;i++){
-				
-				if(i !== attacker){
-			
-				$('#enemies').append($('#'+i));
-				}
-			}
-		
-	});
-
-}
-
-function pickDefender(){
-	
-	defender=-1;
-	defenderScore=0;
-
-	$('#enemies').on('click', '.character', function() {
-		console.log("inside defender");
-		
 		defender=parseInt($(this).attr('id'));
 		defenderScore = characters[defender].basePower;
-		$('#defender').append($(this));
-		$('#btnAttack').attr("disabled",false);
-	});
+		$('#defender').prepend($(this));
+		$('#characters').children().prop("disabled",true);
+		$('#btnAttackRestart').show();
+		$('#btnAttackRestart').attr("disabled",false);
+		$('#message').html("ATTACK!");
+		if($('#characters').children().length ===0){
+			$('#messageCharacters').html("No more enemies left.");
+		}
+
+	}
+	console.log("end clickpickAttackerandEnemies",attacker,defender);
+}	
+
+
+
+
+
+function attackRestart(){
+	if($('#btnAttackRestart').html() === "Restart"){
+		restart();
+	}else if($('#btnAttackRestart').html() === "Attack"){
+		attack();
+	}
 }
 
 function attack(){
 	console.log("inside Attack");
-	$('#btnAttack').click(function() {
+	
+	defenderScore -= attackerPower;
+	attackerScore -= characters[defender].attackPower;
+	
+	$('#'+attacker+' > figcaption:last').text(attackerScore);
+	$('#'+defender+' > figcaption:last').text(defenderScore);
 
-		if(defender === -1){
-			console.log("There is no defender here");
-			return;
-		}
-		
-		defenderScore -= attackerPower;
-		attackerScore -= characters[defender].attackPower;
-		
-		$('#'+attacker+' > figcaption:last').text(attackerScore);
-		$('#'+defender+' > figcaption:last').text(defenderScore);
-
-		console.log("inside Attack",attackerPower,characters[attacker].basePower,attackerScore,characters[defender].attackPower,characters[defender].basePower,defenderScore);
-		attackerPower += characters[attacker].attackPower;
-
-		if(attackerScore<=0){
-			console.log("Game Over...");
+	$('#messageFooter').html("<span>"+"You attacked "+characters[defender].name+" for "+attackerPower+" damage."+"<br>"+characters[defender].name+" attacked you for "+characters[defender].attackPower+" damage."+"</span>"+"<br>");
 			
+	console.log("inside Attack",attackerPower,characters[attacker].basePower,attackerScore,characters[defender].attackPower,characters[defender].basePower,defenderScore);
+	attackerPower += characters[attacker].attackPower;
 
-			$('#btnAttack').attr("disabled",true);	
-			$("#restart").show();
-			return;
-
-		}else if(defenderScore<=0){
-			if($('#enemies').children().length === 0){
-				console.log("Game Over...");
-				$('#btnAttack').attr("disabled",true);
-				$("#restart").show();	
-				return;
-			}
-			console.log("Choose another defender");
-			$('#'+defender).hide();
-
-						
-			pickDefender();
-			
-		}
-		
-	});
-
+	result();
 }
 
-function restart(){
 
-	$('#restart').on('click', 'button', function() {
-		console.log("inside restart");
+function result(){
+	if(attackerScore===0 && defenderScore===0){
+		console.log("here 1");
+	 	$('#message').html("<span>"+"It's a tie. Game over...!"+"</span>"+"<br>");
+	 	beforeRestart();	
+	 	return;
+	}else if (attackerScore <= 0 && defenderScore>0){
+		console.log("here 2");
+		$('#message').html("<span>"+"You got defeated by "+characters[defender].name+". Game over...!"+"</span>"+"<br>");
+	 	beforeRestart();
+	 	return;
+
+	}else if(attackerScore<0 && defenderScore<0){
+		console.log("here 3");
+		$('#messageFooter').prepend("<span>"+"You loose. Game over...!"+"</span>"+"<br>");
+	 	beforeRestart();
+	 	return;
+	}else if(attackerScore>0 &&  defenderScore<=0){
+		console.log("here 4");		
+		$('#messageFooter').prepend("<span>"+"You defeated "+characters[defender].name+"</span>"+"<br>");
 		
-		$('.character').each(function(idx,ele){
-			$(ele).show();
-			$('#characters').append($(ele));
-		});
+		if($('#characters').children().length ===0){
+			$('#messageFooter').prepend("<span>"+"You defeated all the enemeis. Yeh!"+"</span>"+"<br>");
+			$('#messageCharacters').html("CONGRATULATIONS..!!!!");	
+			beforeRestart();
+	 	}else{
+			$('#message').html("Pick another enemy to fight.");
+		}
+		
+		if($('#btnAttackRestart').html() ==="Attack"){
+			$('#'+defender).hide();
+			defender=undefined;
+			$('#btnAttackRestart').attr("disabled",true);
+			$('#characters').children().prop("disabled",false);
+		}
+	}else if(defenderScore>0 &&  attackerScore>0){
+		console.log("here 5");
+		$('#btnAttackRestart').attr("disabled",false);
+	}
+}
 
-	 	startGame();
-	});
+
+function beforeRestart(){
+	
+	$('#btnAttackRestart').attr("disabled",false);
+	$('#btnAttackRestart').html("Restart");
+	$('#message').html("Press restart to play again");
+}
+
+
+function restart(){
+	
+	$('.character').each(function(idx,ele){
+			$(ele).show();
+			$('#characters').prepend($(ele));
+		});
+	initializeGame();
 }
 
 
