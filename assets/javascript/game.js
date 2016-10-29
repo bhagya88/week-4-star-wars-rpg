@@ -1,3 +1,5 @@
+
+// declare global varaibles
 var attacker; //holds index of attacker object in characters array
 var defender; //holds index of defender object in characters array
 
@@ -5,6 +7,7 @@ var attackerPower;
 var attackerScore;
 var defenderScore;
 
+// characters as array of objects
 var characters=[{
 	name:"Arth",
 	basePower:150,
@@ -26,29 +29,36 @@ var characters=[{
 	attackPower:20
 }];
 
+// calls initialize game function
 initializeGame();
+
+// when a character is chosen
 $('#characters').on('click', '.character', pickAttackerAndEnemies);
+
+//on pressing the attackRestart button
 $('#btnAttackRestart').click(attackRestart);
-// $('#btnRestart').click(restart);
 
 
 
 
+// sets the stage for starting the game
 function initializeGame(){
 
+//variable values at the beginning of the game
 	attacker=undefined;    
 	defender=undefined;  
 	attackerPower=0;
 	attackerScore=0;
 	defenderScore=0
 
-	//$('#btnRestart').hide();
+	// toggle the attackRestart button to Attack
 	$('#btnAttackRestart').html("Attack");
 	$("#btnAttackRestart").hide();
 	$('#message').html("Pick your character to get started.");
 	$('#messageFooter').html("");
 	$('#messageCharacters').html("Available characters")
 
+	// showing the basepower and name as captions to the picture of character
 	for(var i=0;i<characters.length;i++){
 			$('#'+i+' > figcaption:last').text(characters[i].basePower);	
 			$('#'+i+' > figcaption:first').text(characters[i].name);
@@ -56,10 +66,12 @@ function initializeGame(){
 
 }
 
+// lets you pick attacker and defender
 function pickAttackerAndEnemies(){
 
 	console.log("begin clickpickAttackerandEnemies",attacker,defender);
-	
+
+	// if attacker is not yet chosen, it sets the attacker when a user clicks on the character
 	if(attacker ===undefined){
 		attacker=parseInt($(this).attr('id'));
 		$('#attacker').prepend($(this));
@@ -67,7 +79,10 @@ function pickAttackerAndEnemies(){
 		attackerPower = characters[attacker].attackPower;
 		$('#message').html("Pick enemy to fight from remaining characters.");	
 		$('#messageCharacters').html("Available enemies");
-	}else if(defender === undefined){
+
+	}
+	// after the attacker is set, for the next click it sets the defender
+	else if(defender === undefined){
 
 		defender=parseInt($(this).attr('id'));
 		defenderScore = characters[defender].basePower;
@@ -86,8 +101,7 @@ function pickAttackerAndEnemies(){
 
 
 
-
-
+// functionality for attack and restart toggle button 
 function attackRestart(){
 	if($('#btnAttackRestart').html() === "Restart"){
 		restart();
@@ -96,25 +110,30 @@ function attackRestart(){
 	}
 }
 
+// handles the processing after an attack
 function attack(){
 	console.log("inside Attack");
 	
+	//attacker and defender scores decremented
 	defenderScore -= attackerPower;
 	attackerScore -= characters[defender].attackPower;
 	
+
 	$('#'+attacker+' > figcaption:last').text(attackerScore);
 	$('#'+defender+' > figcaption:last').text(defenderScore);
 
 	$('#messageFooter').html("<span>"+"You attacked "+characters[defender].name+" for "+attackerPower+" damage."+"<br>"+characters[defender].name+" attacked you for "+characters[defender].attackPower+" damage."+"</span>"+"<br>");
 			
 	console.log("inside Attack",attackerPower,characters[attacker].basePower,attackerScore,characters[defender].attackPower,characters[defender].basePower,defenderScore);
+	//attackers attack power gets increased
 	attackerPower += characters[attacker].attackPower;
-
+	// call result to check result after each attack
 	result();
 }
 
-
+// decides if attacker has won, lost, or tied
 function result(){
+	
 	if(attackerScore===0 && defenderScore===0){
 		console.log("here 1");
 	 	$('#message').html("<span>"+"It's a tie. Game over...!"+"</span>"+"<br>");
@@ -155,7 +174,7 @@ function result(){
 	}
 }
 
-
+// handles cleanup before restart
 function beforeRestart(){
 	
 	$('#btnAttackRestart').attr("disabled",false);
@@ -164,12 +183,15 @@ function beforeRestart(){
 }
 
 
+// restarts by by showing all characters and ccalling initializeGame function
 function restart(){
-	
+
+	//show all the characters in default positions
 	$('.character').each(function(idx,ele){
 			$(ele).show();
 			$('#characters').prepend($(ele));
 		});
+	//set the stage for another game by calling initialize
 	initializeGame();
 }
 
