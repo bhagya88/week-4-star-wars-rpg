@@ -16,7 +16,7 @@ This star wars fight is a fun and interactive game for web browsers developed us
 
 	* The player chooses an opponent by clicking on an enemy's picture.
 
-	* Once the player selects an opponent, that enemy is moved to a `defender area`.
+	* Once the player selects an opponent, that enemy is moved to a `Fighting arena`.
 
 	* The player will now be able to click the `attack` button.
 		* Whenever the player clicks `attack`, their character damages the defender. The opponent will lose `HP` (health points). These points are displayed at the bottom of the defender's picture. 
