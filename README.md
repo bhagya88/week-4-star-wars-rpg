@@ -1,12 +1,22 @@
 # Star Wars RPG Game
 
-
 ### Overview
-This star wars fight is a fun and interactive game for web browsers developed using HTML, CSS, Javascript and JQuery. 
+This star wars fight is a fun and interactive game where the hero fights the enemies. He wins when he defeats all enemies. He loses when he gets defeated by an enemy.
 
 ### Demo
 [Click to watch the demo](https://guarded-woodland-81367.herokuapp.com).
 
+### Technologies used
+* HTML
+* CSS
+* Javascript
+* Jquery
+
+### Challenged faced
+How to pick hero and defender put them fighter arena?
+
+### Solutions found
+Understanding how event listeners work and how DOM can be manipulates using JQuery helped solve the problem.
 
 ### How it works
 
