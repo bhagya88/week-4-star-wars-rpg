@@ -13,7 +13,7 @@ This star wars fight is a fun and interactive game where the hero fights the ene
 * Jquery
 
 ### Challenged faced
-* How to pick hero and defender put them fighter arena?
+* How to pick hero and defender put them in the fighter arena?
 * How to put together the logic for winning and losing?
 
 ### Solutions found
