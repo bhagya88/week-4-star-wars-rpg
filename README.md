@@ -13,10 +13,12 @@ This star wars fight is a fun and interactive game where the hero fights the ene
 * Jquery
 
 ### Challenged faced
-How to pick hero and defender put them fighter arena?
+* How to pick hero and defender put them fighter arena?
+* How to put together the logic for winning and losing?
 
 ### Solutions found
-Understanding how event listeners work and how DOM can be manipulated using JQuery helped solve the problem.
+* Understanding how event listeners work and how DOM can be manipulated using JQuery helped solve the problem.
+* Breaking down the code into functions helped put together the logic. 
 
 ### How it works
 
