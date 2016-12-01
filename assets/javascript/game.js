@@ -112,6 +112,9 @@ function attackRestart(){
 
 // handles the processing after an attack
 function attack(){
+	var audio = document.getElementById('punch');
+
+	audio.play();
 	console.log("inside Attack");
 	
 	//attacker and defender scores decremented
